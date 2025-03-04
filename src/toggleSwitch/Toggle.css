@@ -1,0 +1,32 @@
+
+
+
+.curcle{
+   width: 80px;
+   height: 80px;
+   color: white;
+   background-color: darkgrey;
+   border-radius: 50%;
+   border:1px solid grey;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.main{
+   width: 400px;
+   height: auto;
+   padding: 20px;
+   margin: 50px;
+   background-color: green;
+   border-radius: 50px;
+}
+.Start{
+   background-color: rgb(128, 0, 96);
+   transform: translateX(100%);
+  
+}
+
+.Close{
+   background-color: red;
+   transform: translateX(0);
+}

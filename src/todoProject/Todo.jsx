@@ -18,20 +18,35 @@ const Todo = () => {
     
      
     const handleFormSubmit =(inputValue)=>{
-      
+      const{id, content, checked} = inputValue;
+      // to check if the input is empty or not
       if(!inputValue)return;
-      if(task.includes(inputValue)){return}
-      setTask((prevTask) =>[...prevTask, inputValue])
+      // to check if the input is already exist or not
+      // if(task.includes(inputValue)){return}
+      const ifTodoContentMatch = task.find((curTask)=>curTask.content === content);
+      if(ifTodoContentMatch){return};
+
+      setTask((prevTask) =>[...prevTask,{id,content, checked}])  
       
     }
+    // todo add data to Locals storage
+    localStorage.setItem("reactTodo", JSON.stringify(task))
     
     // for delete function 
     const handleTodoDelete = (value)=>{
-        console.log(task)
-        console.log(value)
-        const updatedTask = task.filter((curTask)=>curTask !== value)
+        const updatedTask = task.filter((curTask)=>curTask.content !== value)
         setTask(updatedTask)
            
+    }
+    // for checked function
+    const handleCheckedTodo = (content)=>{
+     const updatedTask = task.map((curTask)=>{
+       if(curTask.content === content){
+         return {...curTask, checked: !curTask.checked}
+       }
+       return curTask
+     })
+     setTask(updatedTask)
     }
    const handleClearTodoData =()=>{
     setTask([]);
@@ -53,12 +68,14 @@ const Todo = () => {
     <section className='UnolderList flex flex-col items-center justify-center'>
         <ul>
            {
-            task.map((curTask , index) =>{
+            task.map((curTask) =>{
                 return(
                    <TodoList
-                   key={index}
-                   data={curTask}
+                   key={curTask.id}
+                   data={curTask.content}
+                   checked={curTask.checked}
                    onHandleDeleteTodo= {handleTodoDelete}
+                   onHandleCheckedTodo={handleCheckedTodo}
                    />
                 )
                   }

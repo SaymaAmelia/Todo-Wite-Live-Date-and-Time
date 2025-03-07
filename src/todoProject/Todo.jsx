@@ -7,12 +7,14 @@ import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import TodoDate from './TodoDate';
 
-
+const todoKey = "reactTodo";
 
 const Todo = () => {
-    
-  
-    const [task, setTask] =useState([])
+    const [task, setTask] =useState(()=>{
+      const rawTodo = localStorage.getItem(todoKey);
+      if(!rawTodo) return[];
+      return JSON.parse(rawTodo)
+    })
     
    
     
@@ -30,7 +32,9 @@ const Todo = () => {
       
     }
     // todo add data to Locals storage
-    localStorage.setItem("reactTodo", JSON.stringify(task))
+    localStorage.setItem(todoKey, JSON.stringify(task))
+  
+   
     
     // for delete function 
     const handleTodoDelete = (value)=>{
@@ -77,7 +81,7 @@ const Todo = () => {
                    onHandleDeleteTodo= {handleTodoDelete}
                    onHandleCheckedTodo={handleCheckedTodo}
                    />
-                )
+                  )
                   }
                   )
            }
